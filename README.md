@@ -34,7 +34,7 @@ Wire up the MCP2515 to your microcontroller of choice:
 
 Update the script with the GPIO pin that you have connected the MCP2515's CS pin to.
 
-Once wired up, flash the the microcontroller with Arduino IDE. Make sure you have copied the mcp_can to your Arduino libraries folder. (Usually in `Documents/Arduino/libraries`). For those using a NodeMCU/esp8266 or any other controller other than an Arduino, make sure you have the proper board support installed on Arduino IDE.
+Once wired up, flash the the microcontroller with Arduino IDE. Make sure you have the [mcp_can](https://github.com/coryjfowler/MCP_CAN_lib) library installed. For those using a NodeMCU/esp8266 or any other controller other than an Arduino, make sure you have the proper board support installed on Arduino IDE.
 
 ## MCP2515 vehicle wiring
 Connect the Can High (H) to a I-Bus wire and Can Low (L) to ground.
