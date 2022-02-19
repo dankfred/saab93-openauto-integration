@@ -47,7 +47,9 @@ You can splice a I-Bus wire on the ICM (Infotainment) connector (green cable, pi
 | H | I-Bus|
 
 **Note:** For some reason, when the Raspberry Pi is connected to the MCP2515, attaching L to Ground alone doesn't always work. What worked for me is to attach L to the MCP2515's GND pin with a 4k7Ω resistor (given that the raspberry is getting power from the vehicle):
+
 ![](https://cdn.fredaikis.com/public/7fbfebb54ead6f77424acb7132e93069/3abd2d52dbf06128ef6809f4cca5f60b/mcp_resistor.png)
+
 See: http://saabworld.net/showthread.php?t=25524
 
 > The bus lead is a green cable that is internally grounded in each control module via a 9 k8 or a 4 k8 resistor.
