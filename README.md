@@ -1,3 +1,4 @@
+
 # Saab 9-3 NG I-Bus OpenAuto Integration
 
 Allows for the integration of steering wheel buttons, nightpanel and more with OpenAuto.
@@ -39,6 +40,17 @@ Once wired up, flash the the microcontroller with Arduino IDE. Make sure you hav
 ## MCP2515 vehicle wiring
 Connect the Can High (H) to a I-Bus wire and Can Low (L) to ground.
 You can splice a I-Bus wire on the ICM (Infotainment) connector (green cable, pin 1)
+
+| MCP2515| Vehicle |
+|----|--------|
+| L | Ground|
+| H | I-Bus|
+
+**Note:** For some reason, when the Raspberry Pi is connected to the MCP2515, attaching L to Ground alone doesn't always work. What worked for me is to attach L to the MCP2515's GND pin with a 4k7Ω resistor (given that the raspberry is getting power from the vehicle):
+![](https://cdn.fredaikis.com/public/7fbfebb54ead6f77424acb7132e93069/3abd2d52dbf06128ef6809f4cca5f60b/mcp_resistor.png)
+See: http://saabworld.net/showthread.php?t=25524
+
+> The bus lead is a green cable that is internally grounded in each control module via a 9 k8 or a 4 k8 resistor.
 
 ## Testing I-Bus
 With the MCP2515 connected to the car and microcontroller, you should be able to attach Serial Monitor with a laptop and view the live data on the steering wheel buttons. Once sure it works, move on to setting up the Raspberry.
@@ -92,7 +104,7 @@ You can now test the whole setup by running the python script:
    You should be able to see the incoming serial messages from the microcontroller.
 **Note:** the script needs to run as super-user in order for it to work.
 
-Making the script start when the pi:
+Making the script start when the pi boots:
 There are many ways of doing this, I'm using the `/etc/rc.local` approach.
  - Open `/etc/rc.local`
  - Add to the end: `sudo /usr/bin/python3 /var/canbus.py &`
