@@ -24,6 +24,8 @@ void setup()
     
     initializeCanBus();
 
+    initializeGpio();
+
     Serial.println("Setup Complete!");
 }
 
@@ -43,6 +45,25 @@ void initializeCanBus()
     CAN.setMode(MCP_NORMAL);
 
     Serial.println("MCP initialized.");
+}
+
+/**
+ * Initializing of GPIO
+ */
+void initializeGpio()
+{
+    for(int i = 0; i < array_size(busMappings); ++i)
+    {
+        sBusMapping & bm = busMappings[i];
+
+        /* setup the GPIO  */
+        if(bm.stateFlags & EBS_GPIO)
+        {
+            pinMode(bm.gpioSync, OUTPUT);
+            digitalWrite(bm.gpioSync, LOW);
+            Serial.println("BusMapping '" + bm.Name + "': sync on GPIO: " + String(int(bm.gpioSync)));
+        }
+    }
 }
 
 /**
@@ -171,6 +192,9 @@ void parseBusCommand(unsigned long canId, unsigned char * msg, unsigned char siz
             {
                 bm.state = bSet;
                 Serial.println(bm.Name + (bSet ? "_on" : "_off"));
+
+                if(bm.stateFlags & EBS_GPIO)
+                    digitalWrite(bm.gpioSync, bSet ? HIGH : LOW);
             }
         }
         else if(bSet)

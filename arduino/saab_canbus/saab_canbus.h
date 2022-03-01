@@ -4,7 +4,8 @@
 enum eBusStateFlags
 {
   EBS_Change = (1 << 0),
-  EBS_Toggle = (1 << 1)
+  EBS_Toggle = (1 << 1),
+  EBS_GPIO = (1 << 2),
 };
 
 struct sBusMapping
@@ -16,6 +17,7 @@ struct sBusMapping
     byte state;
     unsigned int stateFlags;
     unsigned int counter;
+    unsigned int gpioSync;
   
     sBusMapping()
     {
@@ -24,15 +26,16 @@ struct sBusMapping
         counter = 0;
     }
   
-    sBusMapping(unsigned long id, String name, byte idx, byte value, unsigned int flags = 0)
+    sBusMapping(unsigned long id, String name, byte idx, byte value, unsigned int flags = 0, unsigned int gpio = 0)
     {
         canId = id;
         Name = name;
         byteIdx = idx;
         byteValue = value;
         stateFlags = flags;
+        gpioSync = gpio;
         state = 0;
-        counter = 0;
+        counter = 0;        
     }
 };
 
@@ -54,7 +57,7 @@ sBusMapping busMappings[] =
     {0x290, "btn_sw_IndRight", 4, -128}, //Indicators
     {0x310, "btn_sid_Utility", 5, 32, EBS_Change}, //Empty SID button
     {0x460, "nightpanel", 0, 64, EBS_Toggle}, //Night panel
-    {0x370, "reverse", 0, 1, EBS_Toggle} //Reverse Gear
+    {0x370, "reverse", 0, 1, EBS_Toggle | EBS_GPIO, D8} //Reverse Gear
 };
 
 #endif
