@@ -5,6 +5,9 @@ Allows for the integration of steering wheel buttons, nightpanel and more with O
 There is potential for more integrations, this is just the tip of the iceberg.
 This is by no means production-ready, this is merely a weekend project I took on.
 
+# Demo
+https://www.youtube.com/watch?v=x3kj8ivPpb4
+
 # Required Hardware
 Aside from the (obvious) Raspberry Pi, you will need:
 
